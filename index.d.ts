@@ -82,6 +82,11 @@ interface ReactTreeProps {
      * Custom color to used for the current active node (the node currently selected)
      */
     activeNodeColor?: string
+
+    /**
+     * If true, the leaf node is automatically detected from the data structure instead of explicitly setting the `leaf` field to *true*
+     */
+    autoDetectLeafNode?: boolean
 }
     
 export default class ReactTree extends React.Component<ReactTreeProps, any> {}
