@@ -245,7 +245,8 @@ function (_React$Component) {
           nodeStyle = _this$props.nodeStyle,
           style = _this$props.style,
           disableHoverEffect = _this$props.disableHoverEffect,
-          activeNodeColor = _this$props.activeNodeColor;
+          activeNodeColor = _this$props.activeNodeColor,
+          autoDetectLeafNode = _this$props.autoDetectLeafNode;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         style: _objectSpread({
           width: 400
@@ -263,7 +264,8 @@ function (_React$Component) {
         leafStyle: leafStyle,
         nodeStyle: nodeStyle,
         disableHoverEffect: disableHoverEffect,
-        activeNodeColor: activeNodeColor
+        activeNodeColor: activeNodeColor,
+        autoDetectLeafNode: autoDetectLeafNode
       }));
     }
   }]);
@@ -285,7 +287,8 @@ ReactTree.propTypes = {
   nodeStyle: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object,
   style: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object,
   disableHoverEffect: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
-  activeNodeColor: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string
+  activeNodeColor: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
+  autoDetectLeafNode: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool
 };
 
 /***/ }),
@@ -1474,7 +1477,7 @@ function (_PureComponent) {
       var data = _this.props.data;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "default-node"
-      }, data.leaf ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, _this._isLeafNode() ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "label-icons"
       }, leafIcon || react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_assets_icons_File__WEBPACK_IMPORTED_MODULE_3__["default"], null)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "label-icons"
@@ -1484,8 +1487,10 @@ function (_PureComponent) {
         type: data.toggled ? "open" : "close"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "label-text",
-        style: data.leaf ? _objectSpread({}, nodeStyle, {}, leafStyle) : _objectSpread({}, nodeStyle, {}, parentStyle)
+        style: _this._isLeafNode() ? _objectSpread({}, nodeStyle, {}, leafStyle) : _objectSpread({}, nodeStyle, {}, parentStyle)
       }, data.label));
+    }, _this._isLeafNode = function () {
+      return _this.props.data.leaf || !_this.props.data.children && _this.props.autoDetectLeafNode;
     }, _temp));
   }
 
@@ -1513,7 +1518,7 @@ function (_PureComponent) {
         style: {
           background: data.active ? activeNodeColor !== undefined ? activeNodeColor : "#D5E4F0" : null
         }
-      }, data.leaf ? renderLeaf ? renderLeaf(data.label) : renderNode ? renderNode(data.label) : this._renderDefaultNode() : renderParent ? renderParent(data.label) : renderNode ? renderNode(data.label) : this._renderDefaultNode()), data.children && data.children.map(function (childData) {
+      }, this._isLeafNode() ? renderLeaf ? renderLeaf(data.label) : renderNode ? renderNode(data.label) : this._renderDefaultNode() : renderParent ? renderParent(data.label) : renderNode ? renderNode(data.label) : this._renderDefaultNode()), data.children && data.children.map(function (childData) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TreeNodeView, _extends({
           key: childData.id,
           data: childData,

@@ -13,7 +13,7 @@ export default class TreeNodeView extends PureComponent {
         const {data} = this.props;
         return (
             <div className="default-node">
-                {data.leaf?
+                {this._isLeafNode()?
                     <div className="label-icons">
                         {leafIcon || <FileIcon />}
                     </div>
@@ -23,10 +23,12 @@ export default class TreeNodeView extends PureComponent {
                         {!parentIcon && <FolderIcon type={data.toggled?"open":"close"}/>}
                     </div>
                 }
-                <span className="label-text" style={data.leaf? {...nodeStyle, ...leafStyle} : {...nodeStyle, ...parentStyle}}>{data.label}</span>
+                <span className="label-text" style={this._isLeafNode()? {...nodeStyle, ...leafStyle} : {...nodeStyle, ...parentStyle}}>{data.label}</span>
             </div>
         )
     }
+
+    _isLeafNode = ()=> this.props.data.leaf || (!this.props.data.children && this.props.autoDetectLeafNode);
     
     render(){
         const {data, visible, ...restProps} = this.props;
@@ -39,7 +41,7 @@ export default class TreeNodeView extends PureComponent {
                         className={"node-item-label"+(!disableHoverEffect?" node-item-label-hoverable":"")}
                         style={{background:data.active? activeNodeColor!==undefined? activeNodeColor : "#D5E4F0" : null}}
                     >
-                        {data.leaf ? renderLeaf? renderLeaf(data.label) : renderNode? renderNode(data.label) : this._renderDefaultNode() :
+                        {this._isLeafNode() ? renderLeaf? renderLeaf(data.label) : renderNode? renderNode(data.label) : this._renderDefaultNode() :
                                     renderParent? renderParent(data.label) : renderNode? renderNode(data.label) : this._renderDefaultNode()
                         }
                     </div>
