@@ -1,5 +1,5 @@
 # React-TreeView
-![Imgur](https://i.imgur.com/Ib8O8T0.png)
+![Imgur](https://i.imgur.com/Ib8O8T0.png) <br />
 A data-driven, customizable, fast, lightweight and efficient tree view component built with and for ReactJs.
 ## installation
 ### Yarn
@@ -27,36 +27,36 @@ import React from React;
 import ReactTreeView from "@cels/react-treeview";
 
 const  dummyData  = {
-	label:  'root',
-	value:  "root/",
-	children: [
-		{
-			label:  'parent',
-			value:  "root/parent/",
-			children: [
-				{ label:  'child1', leaf:true },
-				{ label:  'child2', leaf:true }
-			]
-		},
-		{
-			label:  'parent2',
-			value:"root/parent2/",
-		}
-	]
+    label:  'root',
+    value:  "root/",
+    children: [
+        {
+            label:  'parent',
+            value:  "root/parent/",
+            children: [
+                { label:  'child1', value:"root/parent/child1", leaf:true },
+                { label:  'child2', value:"root/parent/child2", leaf:true }
+            ]
+        },
+        {
+            label:  'parent2',
+            value:"root/parent2/"
+        }
+    ]
 };
 
 class App extends React.Component{
-	state = { data: dummyData }
-	handleNodeClicked = (nodeId, nodeValue){
-	   // Do something with the `value` data for the node clicked.
-	}
-	render(){
-		return (
-			<ReactTreeView
-			   data={this.state.data} 
-			   onNodeItemClicked={this.handleNodeClicked} />
-		)
-	}
+    state = { data: dummyData }
+    handleNodeClicked = (nodeId, nodeValue){
+        // Do something with the `value` data for the node clicked.
+    }
+    render(){
+        return (
+            <ReactTreeView
+                data={this.state.data} 
+                onNodeItemClicked={this.handleNodeClicked} />
+        )
+    }
 }
 ```
 
@@ -173,12 +173,12 @@ class App extends React.Component{
   children: "array [optional]"
 }
 ```
-<b>id</b>: A string which identifies the node.
-<b>label</b>: The string to be displayed as a label for the node
-<b>value</b>: The value to be sent to the callback listener when the node is clicked
-<b>leaf</b>: A boolean which identifies if the current node is a leaf node.
-<b>active</b>: If set to true, the node will be highlighted as the current active node.
-<b>toggled</b>: If set to true, and is a parent node, it will be expanded on the tree-view
+<b>id</b>: A string which identifies the node. <br />
+<b>label</b>: The string to be displayed as a label for the node<br />
+<b>value</b>: The value to be sent to the callback listener when the node is clicked<br />
+<b>leaf</b>: A boolean which identifies if the current node is a leaf node.<br />
+<b>active</b>: If set to true, the node will be highlighted as the current active node.<br />
+<b>toggled</b>: If set to true, and is a parent node, it will be expanded on the tree-view<br />
 <b>children</b>: An array of objects where the structure of an object is as explained above (id, label, value... ). 
 
 ## Licence
