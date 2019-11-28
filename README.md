@@ -183,3 +183,7 @@ class App extends React.Component{
 
 ## Licence
 MIT Licensed. Copyright (c) Nkemtakeh Celsoppe 2019.
+
+<hr />
+
+### <center>Have a great day!</center>

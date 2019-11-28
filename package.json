@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "types": "index.d.ts",
   "main": "dist/index.js",
+  "author": "Nkemtakeh Celsoppe",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nkemcels/react-treeview.git"
+  },
+  "description": "A data-driven, customizable, fast, lightweight and efficient tree view component built with and for ReactJs.",
   "scripts": {
     "build": "webpack --mode none --config webpack.config.js"
   },
@@ -26,5 +33,13 @@
     "style-loader": "^1.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
-  }
+  },
+  "keywords": [
+    "react", 
+    "reactjs",
+    "tree view",
+    "ui",
+    "react-component",
+    "file tree"
+  ]
 }
