@@ -66,7 +66,8 @@ export default class ReactTree extends React.Component{
             style,
             disableHoverEffect,
             activeNodeColor,
-            autoDetectLeafNode
+            autoDetectLeafNode,
+            transformLabel
         } = this.props;
 
         return (
@@ -75,6 +76,7 @@ export default class ReactTree extends React.Component{
                     <TreeNodeView 
                         data={this.state.data} 
                         visible={true} 
+                        isFirstNode={true}
                         onNodeItemClicked={this.handleNodeItemClicked}
                         renderParent={renderParent}
                         renderLeaf={renderLeaf}
@@ -87,6 +89,7 @@ export default class ReactTree extends React.Component{
                         disableHoverEffect={disableHoverEffect}
                         activeNodeColor={activeNodeColor}
                         autoDetectLeafNode={autoDetectLeafNode}
+                        transformLabel={transformLabel}
                     />
                 }
             </div>

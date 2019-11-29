@@ -246,7 +246,8 @@ function (_React$Component) {
           style = _this$props.style,
           disableHoverEffect = _this$props.disableHoverEffect,
           activeNodeColor = _this$props.activeNodeColor,
-          autoDetectLeafNode = _this$props.autoDetectLeafNode;
+          autoDetectLeafNode = _this$props.autoDetectLeafNode,
+          transformLabel = _this$props.transformLabel;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         style: _objectSpread({
           width: 400
@@ -254,6 +255,7 @@ function (_React$Component) {
       }, this.state.data && Object.keys(this.state.data).length > 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TreeNodeView__WEBPACK_IMPORTED_MODULE_3__["default"], {
         data: this.state.data,
         visible: true,
+        isFirstNode: true,
         onNodeItemClicked: this.handleNodeItemClicked,
         renderParent: renderParent,
         renderLeaf: renderLeaf,
@@ -265,7 +267,8 @@ function (_React$Component) {
         nodeStyle: nodeStyle,
         disableHoverEffect: disableHoverEffect,
         activeNodeColor: activeNodeColor,
-        autoDetectLeafNode: autoDetectLeafNode
+        autoDetectLeafNode: autoDetectLeafNode,
+        transformLabel: transformLabel
       }));
     }
   }]);
@@ -1473,7 +1476,8 @@ function (_PureComponent) {
           parentIcon = _this$props.parentIcon,
           parentStyle = _this$props.parentStyle,
           leafStyle = _this$props.leafStyle,
-          nodeStyle = _this$props.nodeStyle;
+          nodeStyle = _this$props.nodeStyle,
+          transformLabel = _this$props.transformLabel;
       var data = _this.props.data;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "default-node"
@@ -1488,7 +1492,7 @@ function (_PureComponent) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "label-text",
         style: _this._isLeafNode() ? _objectSpread({}, nodeStyle, {}, leafStyle) : _objectSpread({}, nodeStyle, {}, parentStyle)
-      }, data.label));
+      }, typeof transformLabel === "function" ? transformLabel(data.label) : data.label));
     }, _this._isLeafNode = function () {
       return _this.props.data.leaf || !_this.props.data.children && _this.props.autoDetectLeafNode;
     }, _temp));
@@ -1500,7 +1504,8 @@ function (_PureComponent) {
       var _this$props2 = this.props,
           data = _this$props2.data,
           visible = _this$props2.visible,
-          restProps = _objectWithoutProperties(_this$props2, ["data", "visible"]);
+          isFirstNode = _this$props2.isFirstNode,
+          restProps = _objectWithoutProperties(_this$props2, ["data", "visible", "isFirstNode"]);
 
       var _this$props3 = this.props,
           renderParent = _this$props3.renderParent,
@@ -1511,7 +1516,7 @@ function (_PureComponent) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: !this.props.visible ? "hidden-node" : ""
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "node-item"
+        className: "node-item" + (isFirstNode ? " first-node" : "")
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         onClick: this.handleNodeClicked,
         className: "node-item-label" + (!disableHoverEffect ? " node-item-label-hoverable" : ""),

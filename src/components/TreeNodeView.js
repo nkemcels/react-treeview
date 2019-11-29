@@ -9,7 +9,7 @@ export default class TreeNodeView extends PureComponent {
     }
 
     _renderDefaultNode = ()=>{
-        const {leafIcon, parentIcon, parentStyle, leafStyle, nodeStyle} = this.props;
+        const {leafIcon, parentIcon, parentStyle, leafStyle, nodeStyle, transformLabel} = this.props;
         const {data} = this.props;
         return (
             <div className="default-node">
@@ -23,7 +23,11 @@ export default class TreeNodeView extends PureComponent {
                         {!parentIcon && <FolderIcon type={data.toggled?"open":"close"}/>}
                     </div>
                 }
-                <span className="label-text" style={this._isLeafNode()? {...nodeStyle, ...leafStyle} : {...nodeStyle, ...parentStyle}}>{data.label}</span>
+                <span 
+                    className="label-text" 
+                    style={this._isLeafNode()? {...nodeStyle, ...leafStyle} : {...nodeStyle, ...parentStyle}}>
+                        {typeof transformLabel === "function"? transformLabel( data.label ) : data.label}
+                </span>
             </div>
         )
     }
@@ -31,12 +35,12 @@ export default class TreeNodeView extends PureComponent {
     _isLeafNode = ()=> this.props.data.leaf || (!this.props.data.children && this.props.autoDetectLeafNode);
     
     render(){
-        const {data, visible, ...restProps} = this.props;
+        const {data, visible, isFirstNode, ...restProps} = this.props;
         const {renderParent, renderLeaf, renderNode, disableHoverEffect, activeNodeColor} = this.props
 
         return (
             <div className={!this.props.visible?"hidden-node":""}>
-                <div className="node-item">
+                <div className={"node-item"+(isFirstNode?" first-node":"")}>
                     <div onClick={this.handleNodeClicked} 
                         className={"node-item-label"+(!disableHoverEffect?" node-item-label-hoverable":"")}
                         style={{background:data.active? activeNodeColor!==undefined? activeNodeColor : "#D5E4F0" : null}}

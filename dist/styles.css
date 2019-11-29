@@ -6,6 +6,10 @@
     margin-left: 20px;
 }
 
+.first-node.node-item{
+    margin-left: 0px;
+}
+
 .node-item-label, .node-item-label-hoverable{
     cursor: pointer;
     transition: all 0.2s;
