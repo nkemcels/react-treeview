@@ -195,7 +195,7 @@ function (_React$Component) {
       return _data;
     };
 
-    _this.handleNodeItemClicked = function (nodeId, nodeValue) {
+    _this.handleNodeItemClicked = function (nodeId, nodeValue, isLeafNode) {
       var oldStateData = JSON.parse(JSON.stringify(_this.state.data));
 
       var data = _this._findAndSetActiveNode(oldStateData, nodeId);
@@ -203,7 +203,7 @@ function (_React$Component) {
       _this.setState({
         data: data
       }, function () {
-        _this.props.onNodeClick && _this.props.onNodeClick(nodeId, nodeValue);
+        _this.props.onNodeClick && _this.props.onNodeClick(nodeId, nodeValue, isLeafNode);
       });
     };
 
@@ -1469,7 +1469,7 @@ function (_PureComponent) {
     }
 
     return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(TreeNodeView)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.handleNodeClicked = function () {
-      _this.props.onNodeItemClicked(_this.props.data.id, _this.props.data.value);
+      _this.props.onNodeItemClicked(_this.props.data.id, _this.props.data.value, _this._isLeafNode());
     }, _this._renderDefaultNode = function () {
       var _this$props = _this.props,
           leafIcon = _this$props.leafIcon,

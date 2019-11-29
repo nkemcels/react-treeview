@@ -67,71 +67,60 @@ class App extends React.Component{
       <th>Prop Name</th>
       <th>Structure</th>
       <th>Description</th>
-      <th>Default Value</th>
    </tr>
    <tr>
 	   <td>data</td>
 	   <td>Object</td>
 	   <td>The data to be used in rendering the tree component. 
 	     <a href="#data-structure">View it's structure below</a></td>
-	   <td>No default <b>(Required prop)</b></td>
    </tr>
    <tr>
 	   <td>onNodeClick()</td>
-	   <td>(nodeId:string, nodeVal:any) => void</td>
-	   <td>Callback function to be invoked each time a node is clicked. Receives as arguments the <b>id</b> and <b>value</b> of the data for the node clicked.</td>
-	   <td></td>
+	   <td>(nodeId:string, nodeVal:any, isLeafNode:boolean) => void</td>
+	   <td>Callback function to be invoked each time a node is clicked. Receives as arguments the <b>id</b> and <b>value</b> of the data for the node clicked. The isLeafNode is true if, well, the node clicked is a leaf node.</td>
    </tr>
    <tr>
 	   <td>parentIcon</td>
 	   <td>React.Element</td>
 	   <td>Custom icon to used for parent nodes. It Should be a react component.</td>
-	   <td></td>
    </tr>
    <tr>
 	   <td>leafIcon</td>
 	   <td>React.Element</td>
 	   <td>Custom icon to used for leaf nodes. It Should be a react component.</td>
-	   <td></td>
    </tr>
    <tr>
 	   <td>style</td>
 	   <td>React.CSSProperties</td>
 	   <td>Styles to apply on the react-treeview container component.</td>
-	   <td></td>
    </tr>
    <tr>
 	   <td>parentStyle</td>
 	   <td>React.CSSProperties</td>
 	   <td>Custom styles to apply on the parent node.</td>
-	   <td></td>
    </tr>
    <tr>
 	   <td>leafStyle</td>
 	   <td>React.CSSProperties</td>
 	   <td>Custom styles to apply on the leaf node.</td>
-	   <td></td>
    </tr>
    <tr>
 	   <td>nodeStyle</td>
 	   <td>React.CSSProperties</td>
 	   <td>Custom styles to apply on a node (parent or leaf). <br />
 	   <b>Note:</b> <b>nodeStyle</b> is merged with the <b>parentStyle</b> for a parent node or <b>leafStyle</b> for a leaf node</td>
-	   <td></td>
    </tr>
    <tr>
 	   <td>renderParent()</td>
 	   <td>(label:string) => React.ElementType</td>
 	   <td>Returns a custom component to be used in rendering a parent node.
 		 The <b>label</b> for the current parent node to be rendered is passed as argument.</td>
-	   <td></td>
    </tr>
     <tr>
 	   <td>renderLeaf()</td>
 	   <td>(label:string) => React.ElementType</td>
 	   <td>Returns a custom component to be used in rendering a leaf node.
 		 The <b>label</b> for the current leaf node to be rendered is passed as argument.</td>
-	   <td></td>
    </tr>
    <tr>
 	   <td>renderNode()</td>
@@ -139,31 +128,26 @@ class App extends React.Component{
 	   <td>Returns a custom component to be used in rendering any node (leaf or parent).
 		 The <b>label</b> for the current node to be rendered is passed as argument. 
 		 <br /><b>Note:</b> <b>renderParent</b> and <b>renderLeaf</b> if specified will have a higher precedence over <b>renderNode</b></td>
-	   <td></td>
    </tr>
    <tr>
 	   <td>transformLabel()</td>
 	   <td>(label:string) => string</td>
 	   <td>Takes as argument the label to be displayed for a node and returns the actual text that will be displayed.</td>
-	   <td></td>
    </tr>
    <tr>
 	   <td>disableHoverEffect</td>
 	   <td>boolean</td>
 	   <td>Disables the default highlighting of nodes when moused over.</td>
-	   <td><b>false</b></td>
    </tr>
    <tr>
 	   <td>activeNodeColor</td>
 	   <td>boolean</td>
 	   <td>The color used to highlight the active node (node currently selected). If set to <b>null</b>, The active node is never highlighted</td>
-	   <td><b>#D5E4F0</b></td>
    </tr>
    <tr>
 	   <td>autoDetectLeafNode</td>
 	   <td>boolean</td>
 	   <td>Automatically detects the leaf node (node with no <b>children</b> field), hence no need to explicitly specify the <b>leaf</b> property in the data.</td>
-	   <td><b>false</b></td>
    </tr>
 </table>
 

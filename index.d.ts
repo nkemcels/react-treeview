@@ -19,8 +19,9 @@ interface ReactTreeProps {
     /**
      * Triggered every time a node item is clicked. 
      * It receives as argurments the `id` and the `value` of the data for the node clicked.
+     * The isLeafNode is true if, well, the node clicked is a leaf node.
      */
-    onNodeClick?: (nodeId:string, nodeValue:any) => any,
+    onNodeClick?: (nodeId:string, nodeValue:any, isLeafNode:boolean) => any,
 
     /**
      * Provides a custom component to be used in rendering a parent node. 

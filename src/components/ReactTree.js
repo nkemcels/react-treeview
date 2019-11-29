@@ -36,11 +36,11 @@ export default class ReactTree extends React.Component{
         return _data;
     }
 
-    handleNodeItemClicked = (nodeId, nodeValue)=>{
+    handleNodeItemClicked = (nodeId, nodeValue, isLeafNode)=>{
         let oldStateData = JSON.parse(JSON.stringify(this.state.data));
         let data = this._findAndSetActiveNode(oldStateData, nodeId);
         this.setState({data}, ()=>{
-            this.props.onNodeClick && this.props.onNodeClick(nodeId, nodeValue)
+            this.props.onNodeClick && this.props.onNodeClick(nodeId, nodeValue, isLeafNode)
         });
     }
 

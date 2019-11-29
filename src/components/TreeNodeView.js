@@ -5,7 +5,7 @@ import FileIcon from '../assets/icons/File';
 
 export default class TreeNodeView extends PureComponent {
     handleNodeClicked = ()=>{
-        this.props.onNodeItemClicked(this.props.data.id, this.props.data.value);
+        this.props.onNodeItemClicked(this.props.data.id, this.props.data.value, this._isLeafNode());
     }
 
     _renderDefaultNode = ()=>{
