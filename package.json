@@ -14,9 +14,7 @@
     "build": "webpack --mode none --config webpack.config.js"
   },
   "dependencies": {
-    "prop-types": "^15.7.2",
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0"
+    "prop-types": "^15.7.2"
   },
   "peerDependencies": {
     "react": "^16.6.0",
@@ -32,7 +30,9 @@
     "mini-css-extract-plugin": "^0.4.3",
     "style-loader": "^1.0.0",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0"
   },
   "keywords": [
     "react", 
