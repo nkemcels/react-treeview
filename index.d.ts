@@ -41,6 +41,11 @@ interface ReactTreeProps {
     renderNode?: (label:string) => React.ElementType, 
 
     /**
+     * Takes as argument the label to be displayed for a node and returns the actual text that will be displayed.
+     */
+    transformLabel?: (label:string)=>string,
+
+    /**
      * Custom icon to used for leaf nodes. It Should be a react component.
      */
     leafIcon?: React.ReactElement, 
