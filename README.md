@@ -78,7 +78,7 @@ class App extends React.Component{
    </tr>
    <tr>
 	   <td>onNodeClick()</td>
-	   <td>(nodeId, nodeVal) => void</td>
+	   <td>(nodeId:string, nodeVal:any) => void</td>
 	   <td>Callback function to be invoked each time a node is clicked. Receives as arguments the <b>id</b> and <b>value</b> of the data for the node clicked.</td>
 	   <td></td>
    </tr>
@@ -121,24 +121,30 @@ class App extends React.Component{
    </tr>
    <tr>
 	   <td>renderParent()</td>
-	   <td>(label) => React.ElementType</td>
+	   <td>(label:string) => React.ElementType</td>
 	   <td>Returns a custom component to be used in rendering a parent node.
 		 The <b>label</b> for the current parent node to be rendered is passed as argument.</td>
 	   <td></td>
    </tr>
     <tr>
 	   <td>renderLeaf()</td>
-	   <td>(label) => React.ElementType</td>
+	   <td>(label:string) => React.ElementType</td>
 	   <td>Returns a custom component to be used in rendering a leaf node.
 		 The <b>label</b> for the current leaf node to be rendered is passed as argument.</td>
 	   <td></td>
    </tr>
    <tr>
 	   <td>renderNode()</td>
-	   <td>(label) => React.ElementType</td>
+	   <td>(label:string) => React.ElementType</td>
 	   <td>Returns a custom component to be used in rendering any node (leaf or parent).
 		 The <b>label</b> for the current node to be rendered is passed as argument. 
 		 <br /><b>Note:</b> <b>renderParent</b> and <b>renderLeaf</b> if specified will have a higher precedence over <b>renderNode</b></td>
+	   <td></td>
+   </tr>
+   <tr>
+	   <td>transformLabel()</td>
+	   <td>(label:string) => string</td>
+	   <td>Takes as argument the label to be displayed for a node and returns the actual text that will be displayed.</td>
 	   <td></td>
    </tr>
    <tr>
