@@ -169,9 +169,10 @@ function (_React$Component) {
     _this._processData = function () {
       var _data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-      _data.id = _data.id || "RTN-" + _this.dataIdCounter++;
-      _data.active = _data.active || false;
-      _data.toggled = _data.toggled || false;
+      _data.id = _data.id || "RTN-" + _this._dataIdCounter++;
+      var thisNodeState = _this._compState[_data.id];
+      _data.active = thisNodeState && thisNodeState.active || false;
+      _data.toggled = thisNodeState && thisNodeState.toggled || false;
 
       if (_data.children) {
         _data.children.forEach(function (childData) {
@@ -185,6 +186,10 @@ function (_React$Component) {
     _this._findAndSetActiveNode = function (_data, nodeId) {
       _data.active = _data.id === nodeId;
       _data.toggled = _data.active ? !_data.toggled : _data.toggled;
+      _this._compState[_data.id] = {
+        toggled: _data.toggled,
+        active: _data.active
+      };
 
       if (_data.children) {
         _data.children.forEach(function (childData) {
@@ -207,12 +212,17 @@ function (_React$Component) {
       });
     };
 
-    _this.dataIdCounter = 1;
+    _this.handleNodeItemRightClicked = function (nodeId, nodeValue, isLeafNode) {
+      _this.props.onNodeRightClick && _this.props.onNodeRightClick(nodeId, nodeValue, isLeafNode);
+    };
+
+    _this._dataIdCounter = 1;
+    _this._compState = {};
+    _this._dataSnapshot = JSON.stringify(props.data); // used later to prevent unnecessary processing
+
     _this.state = {
       data: _this._processData(_objectSpread({}, props.data))
     };
-    _this.dataSnapshot = JSON.stringify(props.data); // used later to prevent unnecessary processing
-
     return _this;
   }
 
@@ -221,10 +231,11 @@ function (_React$Component) {
     value: function componentWillReceiveProps(nextProps) {
       var dataSnapshot = JSON.stringify(nextProps.data);
 
-      if (dataSnapshot !== this.dataSnapshot) {
-        this.dataSnapshot = dataSnapshot;
+      if (dataSnapshot !== this._dataSnapshot) {
+        this._dataSnapshot = dataSnapshot;
+        this._dataIdCounter = 1;
 
-        var newData = this._processData(nextProps.data);
+        var newData = this._processData(JSON.parse(JSON.stringify(nextProps.data)));
 
         this.setState({
           data: newData
@@ -257,6 +268,7 @@ function (_React$Component) {
         visible: true,
         isFirstNode: true,
         onNodeItemClicked: this.handleNodeItemClicked,
+        onNodeItemRightClicked: this.handleNodeItemRightClicked,
         renderParent: renderParent,
         renderLeaf: renderLeaf,
         renderNode: renderNode,
@@ -280,6 +292,7 @@ function (_React$Component) {
 ReactTree.propTypes = {
   data: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object,
   onNodeClick: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
+  onNodeRightClick: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
   renderParent: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.elementType,
   renderLeaf: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.elementType,
   renderNode: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.elementType,
@@ -1470,6 +1483,8 @@ function (_PureComponent) {
 
     return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(TreeNodeView)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.handleNodeClicked = function () {
       _this.props.onNodeItemClicked(_this.props.data.id, _this.props.data.value, _this._isLeafNode());
+    }, _this.handleNodeRightClicked = function () {
+      _this.props.onNodeItemRightClicked(_this.props.data.id, _this.props.data.value, _this._isLeafNode());
     }, _this._renderDefaultNode = function () {
       var _this$props = _this.props,
           leafIcon = _this$props.leafIcon,
@@ -1519,6 +1534,7 @@ function (_PureComponent) {
         className: "node-item" + (isFirstNode ? " first-node" : "")
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         onClick: this.handleNodeClicked,
+        onContextMenu: this.handleNodeRightClicked,
         className: "node-item-label" + (!disableHoverEffect ? " node-item-label-hoverable" : ""),
         style: {
           background: data.active ? activeNodeColor !== undefined ? activeNodeColor : "#D5E4F0" : null

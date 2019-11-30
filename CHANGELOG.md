@@ -1,5 +1,10 @@
 # Change log
 
+### v1.1.0
+- Ensures tree toggled state persistence after prop data is externally modified
+- Adds new onNodeRightClick prop to enable the use of context menus 
+- Fix next prop data mutation in component will receive props
+
 ### V1.0.2
 - Adds isLeafNode parameter to the onNodeClick callback
 - Improves the README.md file

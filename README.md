@@ -80,6 +80,12 @@ class App extends React.Component{
 	   <td>Callback function to be invoked each time a node is clicked. Receives as arguments the <b>id</b> and <b>value</b> of the data for the node clicked. The isLeafNode is true if, well, the node clicked is a leaf node.</td>
    </tr>
    <tr>
+   <tr>
+	   <td>onNodeRightClick()</td>
+	   <td>(nodeId:string, nodeVal:any, isLeafNode:boolean) => void</td>
+	   <td>Callback function to be invoked each time a node is right-clicked. Receives as arguments the <b>id</b> and <b>value</b> of the data for the node clicked.</td>
+   </tr>
+   <tr>
 	   <td>parentIcon</td>
 	   <td>React.Element</td>
 	   <td>Custom icon to used for parent nodes. It Should be a react component.</td>

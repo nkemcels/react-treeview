@@ -6,15 +6,19 @@ import TreeNodeView from './TreeNodeView';
 export default class ReactTree extends React.Component{
     constructor(props){
         super(props);
-        this.dataIdCounter = 1
+        this._dataIdCounter = 1
+        this._compState = {}
+        this._dataSnapshot = JSON.stringify(props.data) // used later to prevent unnecessary processing
         this.state = {data: this._processData( {...props.data} ) };
-        this.dataSnapshot = JSON.stringify(props.data) // used later to prevent unnecessary processing
     }
 
     _processData = (_data={})=>{
-        _data.id = _data.id || "RTN-"+(this.dataIdCounter++)
-        _data.active = _data.active || false;
-        _data.toggled = _data.toggled || false;
+        _data.id = _data.id || "RTN-"+(this._dataIdCounter++)
+        const thisNodeState = this._compState[_data.id];
+
+        _data.active = thisNodeState && thisNodeState.active || false;
+        _data.toggled = thisNodeState && thisNodeState.toggled || false;
+
         if(_data.children){
             _data.children.forEach(childData => {
                 this._processData(childData)
@@ -27,6 +31,9 @@ export default class ReactTree extends React.Component{
     _findAndSetActiveNode = (_data, nodeId)=>{
         _data.active = (_data.id === nodeId);
         _data.toggled = _data.active? !_data.toggled : _data.toggled; 
+
+        this._compState[_data.id] = {toggled:_data.toggled, active:_data.active}
+        
         if(_data.children){
             _data.children.forEach(childData => {
                 this._findAndSetActiveNode(childData, nodeId);
@@ -44,11 +51,16 @@ export default class ReactTree extends React.Component{
         });
     }
 
+    handleNodeItemRightClicked = (nodeId, nodeValue, isLeafNode)=>{
+        this.props.onNodeRightClick && this.props.onNodeRightClick(nodeId, nodeValue, isLeafNode)
+    }
+
     componentWillReceiveProps(nextProps){
         let dataSnapshot = JSON.stringify(nextProps.data);
-        if(dataSnapshot!==this.dataSnapshot){
-            this.dataSnapshot = dataSnapshot;
-            let newData = this._processData(nextProps.data);
+        if(dataSnapshot!==this._dataSnapshot){
+            this._dataSnapshot = dataSnapshot;
+            this._dataIdCounter = 1
+            let newData = this._processData(JSON.parse(JSON.stringify(nextProps.data)));
             this.setState({data: newData})
         }
     }
@@ -78,6 +90,7 @@ export default class ReactTree extends React.Component{
                         visible={true} 
                         isFirstNode={true}
                         onNodeItemClicked={this.handleNodeItemClicked}
+                        onNodeItemRightClicked={this.handleNodeItemRightClicked}
                         renderParent={renderParent}
                         renderLeaf={renderLeaf}
                         renderNode={renderNode}
@@ -100,6 +113,7 @@ export default class ReactTree extends React.Component{
 ReactTree.propTypes = {
     data: PropTypes.object,
     onNodeClick: PropTypes.func,
+    onNodeRightClick: PropTypes.func,
     renderParent: PropTypes.elementType, 
     renderLeaf: PropTypes.elementType, 
     renderNode: PropTypes.elementType,

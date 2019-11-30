@@ -8,6 +8,10 @@ export default class TreeNodeView extends PureComponent {
         this.props.onNodeItemClicked(this.props.data.id, this.props.data.value, this._isLeafNode());
     }
 
+    handleNodeRightClicked = ()=>{
+        this.props.onNodeItemRightClicked(this.props.data.id, this.props.data.value, this._isLeafNode());
+    }
+
     _renderDefaultNode = ()=>{
         const {leafIcon, parentIcon, parentStyle, leafStyle, nodeStyle, transformLabel} = this.props;
         const {data} = this.props;
@@ -41,7 +45,7 @@ export default class TreeNodeView extends PureComponent {
         return (
             <div className={!this.props.visible?"hidden-node":""}>
                 <div className={"node-item"+(isFirstNode?" first-node":"")}>
-                    <div onClick={this.handleNodeClicked} 
+                    <div onClick={this.handleNodeClicked} onContextMenu={this.handleNodeRightClicked}
                         className={"node-item-label"+(!disableHoverEffect?" node-item-label-hoverable":"")}
                         style={{background:data.active? activeNodeColor!==undefined? activeNodeColor : "#D5E4F0" : null}}
                     >
