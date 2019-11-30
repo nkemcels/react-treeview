@@ -1,4 +1,6 @@
 # Change log
+### v1.1.1
+- Fix JSON.parse error for non object types.
 
 ### v1.1.0
 - Ensures tree toggled state persistence after prop data is externally modified

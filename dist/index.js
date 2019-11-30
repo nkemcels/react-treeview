@@ -231,7 +231,7 @@ function (_React$Component) {
     value: function componentWillReceiveProps(nextProps) {
       var dataSnapshot = JSON.stringify(nextProps.data);
 
-      if (dataSnapshot !== this._dataSnapshot) {
+      if (_typeof(nextProps.data) == "object" && nextProps.data != null && dataSnapshot !== this._dataSnapshot) {
         this._dataSnapshot = dataSnapshot;
         this._dataIdCounter = 1;
 
