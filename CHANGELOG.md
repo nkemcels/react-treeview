@@ -1,4 +1,7 @@
 # Change log
+### v1.1.2
+- Adds error log for invalid or non-object types passed as data prop
+
 ### v1.1.1
 - Fix JSON.parse error for non object types.
 

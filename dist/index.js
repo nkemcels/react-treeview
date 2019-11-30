@@ -231,15 +231,19 @@ function (_React$Component) {
     value: function componentWillReceiveProps(nextProps) {
       var dataSnapshot = JSON.stringify(nextProps.data);
 
-      if (_typeof(nextProps.data) == "object" && nextProps.data != null && dataSnapshot !== this._dataSnapshot) {
+      if (dataSnapshot !== this._dataSnapshot) {
         this._dataSnapshot = dataSnapshot;
         this._dataIdCounter = 1;
 
-        var newData = this._processData(JSON.parse(JSON.stringify(nextProps.data)));
+        try {
+          var newData = this._processData(JSON.parse(JSON.stringify(nextProps.data)));
 
-        this.setState({
-          data: newData
-        });
+          this.setState({
+            data: newData
+          });
+        } catch (err) {
+          console.error("Cels/ReactTreeviewError: Invalid Object `", nextProps.data, "`.");
+        }
       }
     }
   }, {

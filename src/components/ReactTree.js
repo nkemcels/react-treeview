@@ -57,11 +57,15 @@ export default class ReactTree extends React.Component{
 
     componentWillReceiveProps(nextProps){
         let dataSnapshot = JSON.stringify(nextProps.data);
-        if(typeof nextProps.data =="object" && nextProps.data!=null && dataSnapshot!==this._dataSnapshot){
+        if(dataSnapshot!==this._dataSnapshot){
             this._dataSnapshot = dataSnapshot;
             this._dataIdCounter = 1
-            let newData = this._processData(JSON.parse(JSON.stringify(nextProps.data)));
-            this.setState({data: newData})
+            try{
+                let newData = this._processData(JSON.parse(JSON.stringify(nextProps.data)));
+                this.setState({data: newData})
+            }catch(err){
+                console.error("Cels/ReactTreeviewError: Invalid Object `", nextProps.data, "`. passed as data prop")
+            }
         }
     }
 
